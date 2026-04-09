@@ -8,9 +8,10 @@ O objetivo é garantir que o código seja consistente, legível, previsível e a
 
 As regras utilizam, quando apropriado, a terminologia da RFC 2119:
 
-- **DEVE**: requisito obrigatório  
-- **NÃO DEVE**: comportamento proibido  
-- **DEVERIA**: recomendação forte  
+- **PRECISA**: requisito obrigatório
+- **NÃO PODE**: comportamento proibido
+- **DEVE**: recomendação forte
+- **NÃO DEVE**: recomendação forte contra
 - **PODE**: opção permitida  
 
 Este guia foi elaborado com base em boas práticas de mercado, nos Style Guides da Google e nos padrões observados nos projetos existentes da Bridger.
@@ -19,11 +20,11 @@ Este guia foi elaborado com base em boas práticas de mercado, nos Style Guides 
 
 ## Princípios gerais
 
-1. O código DEVE priorizar clareza em vez de concisão.  
-2. O código DEVE ser previsível do ponto de vista operacional.  
-3. O código DEVE refletir claramente a responsabilidade de cada componente.  
-4. O código DEVE evitar abstrações desnecessárias ou genéricas quando o contexto for específico.  
-5. O código DEVERIA manter consistência de idioma dentro de um mesmo contexto.  
+1. O código PRECISA priorizar clareza em vez de concisão.  
+2. O código PRECISA ser previsível do ponto de vista operacional.  
+3. O código PRECISA refletir claramente a responsabilidade de cada componente.  
+4. O código PRECISA evitar abstrações desnecessárias ou genéricas quando o contexto for específico.  
+5. O código DEVE manter consistência de idioma dentro de um mesmo contexto.
 
 ---
 
@@ -31,48 +32,111 @@ Este guia foi elaborado com base em boas práticas de mercado, nos Style Guides 
 
 ### Pacotes e diretórios
 
-- Pacotes DEVEM utilizar `camelCase`.
-- Cada pacote (pasta raiz) DEVERIA representar um sistema ou domínio.
+- Pacotes PRECISAM utilizar `camelCase`.
+- NÃO DEVEM ser utilizadas abreviações.
+- Cada pacote (pasta raiz) DEVE representar um sistema ou domínio.
 - Os diretórios imediatamente abaixo do pacote DEVERIAM representar divisões de responsabilidades ou objetos específicos do domínio.
-- O caminho DEVE permitir identificar rapidamente a responsabilidade da classe.
-- Abreviações NÃO DEVEM ser usadas sem clareza.
+- O caminho PRECISA permitir identificar rapidamente a responsabilidade da classe.
+- Abreviações NÃO PRECISAM ser usadas sem clareza.
+
+Ex.:
+
+```plaintext
+src/
+├── sapDominio/
+│   ├── departamento/
+│   │   │── pedidoVenda/
+│   │   │   │── criacao/
+│   │   │   │   │── model/
+│   │   │   │   └── rest/
+│   │   │   │── exclusao/
+│   │   │   │   │── model/
+│   │   │   │   └── rest/
+│   ├── pedidoCompra/
+│   │   │── model/
+│   │   └── rest/
+│   ├── notaFiscalEntrada/
+│   │   │── model/
+│   │   └── rest/
+│   ├── notaFiscalSaida/
+│   │   │── model/
+│   │   └── rest/
+├── sapResponsabilidade/
+│   ├── model/
+│   │   │── pedidoCompra/
+│   │   │── notaFiscalEntrada/
+│   │   │── notaFiscalSaida/
+│   │   └── pedidoVenda/
+│   ├── rest/
+│   │   │── pedidoCompra/
+│   │   │── notaFiscalEntrada/
+│   │   │── notaFiscalSaida/
+│   │   └── pedidoVenda/
+```
 
 ---
 
 ### Classes
 
-- Classes DEVEM utilizar `PascalCase`.
-- O nome da classe DEVE refletir claramente sua responsabilidade.
+- Classes PRECISAM utilizar `PascalCase`.
+- O nome da classe PRECISA refletir claramente sua responsabilidade.
+- NÃO DEVEM ser utilizadas abreviações.
 - O nome das classes de Interoperabilidade DEVERIAM ser o tipo da classe:
+  - `Service`: Classes que extendem de Ens.BusinessService
   - `Process`: Classes que extendem de Ens.BusinessProcess
   - `Operation`: Classes que extendem de Ens.BusinessOperation
-  - `Service`: Classes que extendem de Ens.BusinessService
 
 ---
 
 ### Métodos
 
-- Métodos DEVEM utilizar `PascalCase`.
-- Métodos DEVEM ter nomes verbais e descritivos.
-- Nomes genéricos (ex: `Execute`, `Handle`, ‘OnRequest’) DEVEM ser utilizados quando a responsabilidade da classe é realizar somente uma ação específica.
-- Parâmetros DEVEM utilizar o prefixo “p” seguido da descrição do mesmo em PascalCase (ex. pRequest, pInitialDate).
+- Métodos PRECISAM utilizar `PascalCase`.
+- NÃO DEVEM ser utilizadas abreviações.
+- Métodos PRECISAM ter nomes verbais e descritivos.
+- Nomes genéricos (ex: `Execute`, `Handle`, `OnRequest`) PRECISAM ser utilizados quando a responsabilidade da classe é realizar somente uma ação específica.
+- Parâmetros PRECISAM utilizar `camelCase` (ex. request, initialDate).
 
 ---
 
 ### Propriedades
 
-- Propriedades DEVEM utilizar `PascalCase`.  
-- Nomes DEVEM ser claros e representar corretamente seu propósito.  
+- Propriedades PRECISAM utilizar `PascalCase`.  
+- NÃO DEVEM ser utilizadas abreviações.
+- Nomes PRECISAM ser claros e representar corretamente seu propósito.  
 - Configurações DEVERIAM ser expostas via parâmetros apropriados da plataforma.  
+
+---
+
+### Parâmetros (de classe)
+
+- Parâmetros PRECISAM utilizar `UPPERCASE`.
+- NÃO DEVEM ser utilizadas abreviações.
+- Nomes PRECISAM ser claros e representar corretamente seu propósito.
 
 ---
 
 ### Variáveis locais
 
-- Variáveis DEVEM ser curtas, porém descritivas.  
-- Abreviações não evidentes DEVEM ser evitadas.  
-- Uso de `#Dim` DEVERIA ser adotado quando aumentar a clareza.  
-- Em caso de inconsistência de padrão, utilizar `[PREENCHA AQUI]`.  
+- Nomes PRECISAM ser claros e representar corretamente seu propósito.
+- Abreviações PODEM ser utilizadas para não perder contexto de variáveis com nomes extensos
+- Abreviações não evidentes PRECISAM ser evitadas.
+- Uso de `#Dim` DEVE ser adotado quando aumentar a clareza.
+- Em caso de inconsistência de padrão, utilizar `[PREENCHA AQUI]`.
+
+```objectscript
+// contexto
+Set medianaAnaliseDadosPedidosVendaHistorico = "não funciona pelo número de caracteres"
+
+// aceitáveis
+Set medianaAnaliseDadosPevHistorico = "ideal"
+Set medianaAnaliDadPevHistorico = "aceitável"
+
+// inaceitável
+Set medianaAnaliDadPevHist = "excessivamente abreviado"
+Set medianaAnaliseDadosPedidosVenda = "perdeu contexto do histórico"
+Set medianaAnaliseDados = "perdeu contexto do pedido de venda"
+Set medianaPedidoHistorico = "perdeu contexto da análise de dados"
+```
 
 ---
 
@@ -80,76 +144,72 @@ Este guia foi elaborado com base em boas práticas de mercado, nos Style Guides 
 
 ### Business Process
 
-- DEVE orquestrar o fluxo.
-- DEVE delegar responsabilidades para outras camadas.
-- DEVE tratar erros e retornar status apropriado.
-- NÃO DEVE comunicar com sistemas externos.
-- NÃO DEVERIA receber e retornar dados não estruturados
+- PRECISA orquestrar o fluxo.
+- PRECISA delegar responsabilidades para outras camadas.
+- PRECISA tratar erros e retornar status apropriado.
+- NÃO PODE comunicar com sistemas externos.
+- NÃO DEVE receber e retornar dados não estruturados
 
 ---
 
 ### Request e Response
 
-- DEVEM representar contratos de entrada e saída.  
-- NÃO DEVEM conter lógica de negócio.  
-- DEVEM ser simples e objetivos.  
+- PRECISAM representar contratos de entrada e saída.  
+- NÃO PRECISAM conter lógica de negócio.  
+- PRECISAM ser simples e objetivos.  
 
 ---
 
 ### Business Operation
 
-- DEVE encapsular integrações externas.
-- DEVE centralizar configurações técnicas (host, porta, SSL, etc).
-- NÃO DEVE conter transformação de dados complexa.
-- NÃO DEVE tomar decisões de negócio.
+- PRECISA encapsular integrações externas.
+- PRECISA centralizar configurações técnicas (host, porta, SSL, etc).
+- NÃO PODE conter transformação de dados complexa.
+- NÃO PODE tomar decisões de negócio.
 
 ---
 
 ### Business Service
 
-- DEVE ser responsável por entrada ou aquisição de dados.
+- PRECISA ser responsável por entrada ou aquisição de dados.
 - DEVE iniciar fluxos de processamento.
-- NÃO DEVE tomar decisões de negócio.
+- NÃO PODE tomar decisões de negócio.
 
 ---
 
 ### Data Transform
 
-- DEVE realizar apenas transformação de dados.
-- NÃO DEVE executar integração ou persistência.
-- DEVE manter conversões explícitas e previsíveis.
+- PRECISA realizar apenas transformação de dados.
+- NÃO PODE executar integração ou persistência.
+- PRECISA manter conversões explícitas e previsíveis.
 
 ---
 
 ### Persistência
 
-- Classes DEVEM representar estado durável.
-- Métodos DEVEM ser simples e objetivos.
-- Operações de escrita DEVEM ser explícitas.
+- Classes PRECISAM representar estado durável.
+- Métodos PRECISAM ser simples e objetivos.
+- Operações de escrita PRECISAM ser explícitas.
 
 ---
 
 ## Formatação de código
 
-- A indentação DEVE ser feita utilizando tabs.
-- Linhas muito longas DEVERIAM ser evitadas.
-- Comentários DEVEM explicar o “porquê”, não o “o quê”.
-- Refatorações puramente estéticas NÃO DEVEM ser feitas sem justificativa.
+- A indentação PRECISA ser feita utilizando tabs.
+- Linhas muito longas DEVERIAM ser evitadas (evitar passar da coluna 80).
+- Comentários PRECISAM explicar o “porquê”, não o “o quê”.
 
 ---
 
 ### Chaves
 
-O uso de chaves deve seguir o padrão `Allman`.
+O uso de chaves PRECISA seguir o padrão `K&R`.
 Ex.
 
 ```objectscript
-If (idade >= 18)
-{
+If (idade >= 18) {
     Write “Maior de idade”, !
-}
-Else
-{
+} Else {
     Write “Menor de idade”, !
 }
 ```
@@ -158,45 +218,93 @@ Else
 
 ### Linter
 
-- Deve ser utilizado o linter padrão da Intersystems no VsCode (intersystems.language-server)
+- PRECISA ser utilizado o linter padrão da Intersystems no VsCode (intersystems.language-server)
 
-O linter deve estar configurado conforme JSON abaixo:
+O linter PRECISA estar configurado conforme JSON abaixo:
 
 ```json
 {
-       // Intersystem auto-formatter
-        "intersystems.language-server.formatting.commands.case": "word",
-        "intersystems.language-server.formatting.commands.length": "long",
-        "intersystems.language-server.formatting.expandClassNames": true,
-        "intersystems.language-server.formatting.system.case": "upper",
-        "intersystems.language-server.formatting.system.length": "long",
+    // Intersystem auto-formatter
+    "intersystems.language-server.formatting.commands.case": "word",
+    "intersystems.language-server.formatting.commands.length": "long",
+    "intersystems.language-server.formatting.expandClassNames": true,
+    "intersystems.language-server.formatting.system.case": "upper",
+    "intersystems.language-server.formatting.system.length": "long",
 }
 ```
 
-Caso não seja possível o uso do linter, os padrões abaixo devem ser seguidos manualmente:
+Caso não seja possível o uso do linter, os padrões abaixo PRECISAM ser seguidos manualmente:
 
-- Comandos DEVEM estar no seu formato não abreviado (`Set` e não `S`).
-- Comandos DEVEM estar em PascalCase (`Set` e não `set` ou `SET`).
-- Nomes de classe DEVEM estar em sua versão mais estendida, sem abreviações (%Library.String ao invés de %String)
-- Funções de sistema DEVEM estar em UPPERCASE ($PIECE e não $Piece ou $piece)
-- Funções de sistema DEVEM estar no seu formato não abreviado.($PIECE e não $P, $LENGTH e não $L)
+- Comandos PRECISAM estar no seu formato não abreviado (`Set` e não `S`).
+- Comandos PRECISAM estar em PascalCase (`Set` e não `set` ou `SET`).
+- Nomes de classe PRECISAM estar em sua versão mais estendida, sem abreviações (`%Library.String` ao invés de `%String`)
+- Funções de sistema PRECISAM estar em UPPERCASE ($PIECE e não $Piece ou $piece)
+- Funções de sistema PRECISAM estar no seu formato não abreviado.($PIECE e não $P, $LENGTH e não $L)
+
+```plaintext
+....model/
+    ├── Pedido/
+    ├── Cliente/
+    ├── Fornecedor/
+    ├── auxiliares/
+        ├── Endereco/
+```
+
+```
+Class xpto.model.Pedido
+
+Property Id As %Library.Integer
+
+Property Cliente As xpto.model.Cliente
+
+Property Endereco As ?
+```
 
 ---
 
 ## Tratamento de erros
 
-- NÃO DEVE ser reutilizada ou re-atribuída uma mesma variável de status no mesmo método.
-- Métodos a serem convocados via Production DEVEM retornar `%Library.Status` (`OnProcessInput` dos BusinessServices, `OnRequest` dos BusinessProcesses e métodos do BusinessOperation).
-- Métodos públicos DEVEM conter um Try Catch para realizar a tratativa dos erros antes de fazer qualquer retorno.
-- Métodos privados DEVERIAM não retornar %Library.Status e sim uma exception, para mais fácil tratativa no Try Catch do método público que o chama.
-- DEVERIA ser utilizada a `%Exception.General` sempre que possível, para gerar erros customizados.
+- NÃO PODE ser reutilizada ou re-atribuída uma mesma variável de status no mesmo método.
+- Os erros PRECISAM ser validados e retornados rápidamente, evitando validações de sucesso que englobam o restante do código.
+- Métodos a serem convocados via Production PRECISAM retornar `%Library.Status` (`OnProcessInput` dos BusinessServices, `OnRequest` dos BusinessProcesses e métodos do BusinessOperation).
+- Métodos públicos PRECISAM conter um Try Catch para realizar a tratativa dos erros antes de fazer qualquer retorno.
+- Métodos privados DEVERIAM não retornar `%Library.Status` e sim uma exception, para mais fácil tratativa no Try Catch do método público que o chama.
+- DEVE ser utilizada a `%Exception.General` sempre que possível, para gerar erros customizados.
+
+```objectscript
+// correto
+If (erro = true)
+{
+    Throw erro
+}
+
+// errado
+If (erro = false)
+{
+    // continua o código
+}
+Else
+{
+    Throw erro
+}
+
+// errado, else desnecessário
+If (erro = true)
+{
+    Throw error
+}
+Else
+{
+    // continua o código
+}
+```
 
 ---
 
 ## Logging e observabilidade
 
-- Logs DEVEM ser claros e úteis para operação.
-- Logs NÃO DEVEM expor dados sensíveis.
+- Logs PRECISAM ser claros e úteis para operação.
+- Logs NÃO PODEM expor dados sensíveis.
 - Logs PODEM ser opcionais através de um parâmetro num método, ou uma propriedade na classe para configuração na Production.
 
 ---
@@ -207,7 +315,11 @@ Caso não seja possível o uso do linter, os padrões abaixo devem ser seguidos 
 - PODEM ser criados testes automatizados com objetivo de validar se sistemas externos estão no ar e respondendo como esperado.
 - Data Transformations DEVERIAM ter testes automatizados simulando um JSON/Objeto de entrada e os valores esperados no objeto de saída.
 - Business Operations PODEM ter lógica de “mock”, retornando um valor fixo ao invés de comunicar com o sistema externo.
-- Mocks DEVEM ser claramente identificados.
+- Mocks PRECISAM ser claramente identificados.
 
 ---
 
+## Boas práticas gerais
+
+1. Variáveis NÃO DEVERIAM ser reatribuídas.
+2. O código NÃO DEVERIA ter mais que 3 níveis de indentação.
