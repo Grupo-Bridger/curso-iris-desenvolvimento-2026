@@ -132,3 +132,23 @@ O curso será conduzido utilizando uma abordagem prática e colaborativa:
 - Conta no GitHub;  
 - Repositório base do curso;  
 - Materiais de apoio (documentação, style guide, guias práticos).
+
+## Fontes e documentações
+
+- https://openexchange.intersystems.com/
+- https://openexchange.intersystems.com/package/InterSystems-Package-Manager-1
+- https://openexchange.intersystems.com/package/Embedded-Git-1
+- https://trunkbaseddevelopment.com/
+- https://engineering.atspotify.com/2025/4/how-we-release-the-spotify-app-part-1
+- https://docs.github.com/en/get-started/using-github/github-flow
+- https://medium.com/trainingcenter/utilizando-o-fluxo-git-flow-e63d5e0d5e04
+- https://www.youtube.com/watch?v=hMHRUYNl5Bk
+- https://www.youtube.com/watch?v=Fh0uyC9owyE
+- https://github.com/intersystems/git-source-control
+- https://community.intersystems.com/post/git-source-control-best-practices-iris-vscode
+- https://community.intersystems.com/post/continuous-delivery-your-intersystems-solution-using-gitlab-index
+- https://github.com/cristianojs02/iris-deployer
+- https://github.com/intersystems-community/iris-interoperability-template
+- https://google.github.io/eng-practices/
+- https://google.github.io/styleguide/
+- 
